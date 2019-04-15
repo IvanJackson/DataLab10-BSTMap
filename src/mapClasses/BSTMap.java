@@ -2,10 +2,12 @@ package mapClasses;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Iterator;
 
 import treeClasses.LinkedBST;
 import interfaces.Entry;
 import interfaces.Map;
+import positionalStructures.Position;
 
 public class BSTMap<K, V> implements Map<K, V> {
 	// the binary search tree supporting this implementation of the map
@@ -57,9 +59,15 @@ public class BSTMap<K, V> implements Map<K, V> {
 	 */
 	public V put(K key, V value) {
 		ModifiableEntry<K, V> result = (ModifiableEntry<K, V>) tree.get(key); 
-		
-		// ADD CODE HERE AS PART OF EXERCISE 1.
-	
+		if(result!=null) {
+			V vtr = result.getValue();
+			result.setValue(value);
+			return vtr;
+		}
+		else {
+			tree.add(key, value);
+			
+		}
 		return null;
 	}
 
@@ -68,30 +76,44 @@ public class BSTMap<K, V> implements Map<K, V> {
 	 * remove of the map
 	 */
 	public V remove(K key) {
-		return null;     // SUBSTITUE THIS STATEMENT WITH YOUR CODE NEEDED FOR THIS OPERATION
+		return tree.isEmpty()? null: tree.remove(key).getValue();    // SUBSTITUE THIS STATEMENT WITH YOUR CODE NEEDED FOR THIS OPERATION
 		                 // AS PART OF EXERCISE 1.
 	}
 
 	@Override
 	public Iterable<K> keySet() {
 		ArrayList<K> keys = new ArrayList<>();
-		// ADD CODE HERE AS PART OF EXERCISE 2. 
-		// USE THE FACT THE THE LINKED BINARY TREE IS ITERABLE of its elements!
+		if(!tree.isEmpty()) {
+			Iterator<Entry<K, V>> iter = tree.iterator();
+			while(iter.hasNext()) {
+				keys.add(iter.next().getKey());
+			}
+		}
 		return keys; 
 	}
 
 	@Override
 	public Iterable<V> values() {
-		// ADD CODE HERE AS PART OF EXERCISE 2. 
-		// USE THE FACT THE THE LINKED BINARY TREE IS ITERABLE of its elements!
-		return null;   // NEED TO CHANGE THIS STATEMENT TOO
+		ArrayList<V> values = new ArrayList<>();
+		if(!tree.isEmpty()) {
+			Iterator<Entry<K, V>> iter = tree.iterator();
+			while(iter.hasNext()) {
+				values.add(iter.next().getValue());
+			}
+		}
+		return values; 
 	}
 
 	@Override
 	public Iterable<Entry<K, V>> entrySet() {
-		// ADD CODE HERE AS PART OF EXERCISE 2.
-		// USE THE FACT THE THE LINKED BINARY TREE IS ITERABLE of its elements!
-		return null;  // NEED TO CHANGE THIS STATEMENT TOO
+		ArrayList<Entry<K,V>> entries = new ArrayList<>();
+		if(!tree.isEmpty()) {
+			Iterator<Entry<K, V>> iter = tree.iterator();
+			while(iter.hasNext()) {
+				entries.add(iter.next());
+			}
+		}
+		return entries; 
 	}
 
 	public void displayMAPTree() {   // This operation has been added just for testing

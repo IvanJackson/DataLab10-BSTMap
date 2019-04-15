@@ -45,8 +45,12 @@ public class MapTester1 {
 		map.remove(1); 
 		showMap("Map content after removing 1 ...", map); 
 		
+		mapInsert(15, "fifteen", map);
+		
 		
 		showMapEntries("Entries in the map (visiting nodes in inorder)", map); 
+		showMapKeys("Entries in the map (visiting nodes in inorder)", map);
+		showMapValues("Entries in the map (visiting nodes in inorder)", map);
 	}
 	
 	private static void mapInsert(int key, String value, BSTMap<Integer, String> map) { 

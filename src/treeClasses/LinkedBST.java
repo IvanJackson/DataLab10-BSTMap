@@ -54,6 +54,10 @@ implements BinarySearchTree<K, V>  {
 		else recInsert(root(), e);      // in this case, traverse the tree in search of the right
 		// location where to put the new element’s position
 	}
+	
+	public Iterator<Entry<K, V>> iterator() {
+		return super.iterator();
+	}
 
 
 	/**
