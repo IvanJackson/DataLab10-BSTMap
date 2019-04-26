@@ -207,6 +207,12 @@ implements BinarySearchTree<K, V>  {
 		return r;
 	}
 	
+	private Position<Entry<K, V>> findBiggestPosition(Position<Entry<K, V>> r) {
+		while (right(r) != null) 
+			r = right(r); 
+		return r;
+	}
+	
 	// Forbid the direct use of the following operations, they can be invoked only in a
 	// controlled manner from methods implemented in this subclass. 
 	
@@ -255,6 +261,28 @@ implements BinarySearchTree<K, V>  {
 		Position<Entry<K, V>> ptr = findPosition(root(), key);
 		if (ptr == null) return null; 
 		return ptr.getElement();
+	}
+	
+	public Entry<K, V> min(){
+		return this.findSmallestPosition(this.root()).getElement();
+	}
+	
+	public Entry<K, V> max(){
+		return this.findBiggestPosition(this.root()).getElement();
+	}
+	
+	public Entry<K, V> removeMin(){
+		Entry<K, V> ptr = this.min();
+		Position<Entry<K,V>> remove = this.findSmallestPosition(this.root());
+		super.remove(this.findSmallestPosition(this.root()));
+		return ptr;
+	}
+	
+	public Entry<K, V> removeMax(){
+		Entry<K, V> ptr = this.max();
+		Position<Entry<K,V>> remove = this.findBiggestPosition(this.root());
+		super.remove(this.findBiggestPosition(this.root()));
+		return ptr;
 	}
 
 	

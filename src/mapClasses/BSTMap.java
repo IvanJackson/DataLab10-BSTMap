@@ -82,39 +82,34 @@ public class BSTMap<K, V> implements Map<K, V> {
 
 	@Override
 	public Iterable<K> keySet() {
-		ArrayList<K> keys = new ArrayList<>();
-		if(!tree.isEmpty()) {
-			Iterator<Entry<K, V>> iter = tree.iterator();
-			while(iter.hasNext()) {
-				keys.add(iter.next().getKey());
-			}
-		}
-		return keys; 
+		ArrayList<K> kList = new ArrayList<>(); 
+        
+	    for (Position<Entry<K, V>> p : tree.positions())    // positions in inorder for binary tree
+	         kList.add(p.getElement().getKey()); 
+	        
+	    return kList;
 	}
 
 	@Override
 	public Iterable<V> values() {
-		ArrayList<V> values = new ArrayList<>();
-		if(!tree.isEmpty()) {
-			Iterator<Entry<K, V>> iter = tree.iterator();
-			while(iter.hasNext()) {
-				values.add(iter.next().getValue());
-			}
-		}
-		return values; 
+		ArrayList<V> vList = new ArrayList<>(); 
+        
+	    for (Position<Entry<K, V>> p : tree.positions())    // positions in inorder for binary tree
+	         vList.add(p.getElement().getValue()); 
+	        
+	    return vList;
 	}
 
 	@Override
 	public Iterable<Entry<K, V>> entrySet() {
-		ArrayList<Entry<K,V>> entries = new ArrayList<>();
-		if(!tree.isEmpty()) {
-			Iterator<Entry<K, V>> iter = tree.iterator();
-			while(iter.hasNext()) {
-				entries.add(iter.next());
-			}
-		}
-		return entries; 
+	    ArrayList<Entry<K, V>> eList = new ArrayList<>(); 
+	        
+	    for (Position<Entry<K, V>> p : tree.positions())    // positions in inorder for binary tree
+	         eList.add(p.getElement()); 
+	        
+	    return eList;
 	}
+
 
 	public void displayMAPTree() {   // This operation has been added just for testing
 		this.tree.display();
